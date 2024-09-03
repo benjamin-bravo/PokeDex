@@ -7,15 +7,28 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">{{ folder }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong class="capitalize">{{ folder }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-grid *ngIf="pokemon.length > 0">
+      <ion-row>
+        <ion-col *ngFor="let poke of pokemon;index as i" size-lg="2" size-sm="12" size-md="6">
+          <ion-card [routerLink]="'/pokemon/'+i">
+            <ion-card-header>
+              <ion-card-subtitle>#{{i+1}}</ion-card-subtitle>
+              <ion-card-title>{{poke.name | titlecase}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-img NgOptimizedImage [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+(i+1)+'.png'"></ion-img>
+            </ion-card-content>
+          </ion-card>
+        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p *ngIf="pokemon.length == 0">loading...</p>    
 </ion-content>
